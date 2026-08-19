@@ -16,6 +16,17 @@ et de sous-corriger un texte qui gêne sans qu'on sache dire pourquoi.
 ./install-for-project.sh ~/dev/mon-projet  # <projet>/.claude/skills, copie
 ```
 
+Pour Claude Desktop, qui importe la skill sous forme d'archive :
+
+```bash
+./build-zip.sh          # dist/marqueurs-llm-<version>.zip
+```
+
+Le script valide le frontmatter et fait tourner l'analyseur sur le texte-témoin
+avant d'empaqueter. Une archive partie avec un script cassé ne se découvre
+qu'après l'import, quand il est trop tard pour savoir ce qui a changé.
+L'archive s'importe depuis Réglages, Capacités, Compétences.
+
 Le lien symbolique garde la skill synchronisée avec ce dépôt pendant que vous
 l'améliorez. La copie sert aux skills de projet, qui finissent versionnées avec
 le dépôt et pour lesquelles un chemin absolu serait cassé après un clone.

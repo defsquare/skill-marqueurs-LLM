@@ -121,8 +121,10 @@ fi
 if command -v python3 >/dev/null 2>&1; then
   fixture="$DEST/references/exemple-texte-llm.md"
   if [ -f "$fixture" ]; then
+    # Sans le || true, pipefail ferait sortir le script en silence quand
+    # l analyseur plante, et le message d avertissement ne sortirait jamais.
     score="$(python3 "$DEST/scripts/analyse.py" "$fixture" 2>/dev/null \
-             | sed -n 's/^SCORE : \([0-9]*\) .*/\1/p')"
+             | sed -n 's/^SCORE : \([0-9]*\) .*/\1/p' || true)"
     if [ "$score" = "9" ]; then
       printf '%s✓%s analyseur fonctionnel (texte-témoin : 9/13 hors cible)\n' "$GREEN" "$OFF"
     elif [ -n "$score" ]; then
