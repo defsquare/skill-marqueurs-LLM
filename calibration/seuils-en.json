@@ -6,9 +6,9 @@
     "echantillons": 119,
     "mots": 99965,
     "score_median": 1,
-    "score_moyen": 1.44,
-    "score_max": 6,
-    "part_au_dela_de_6": 0.8
+    "score_moyen": 1.19,
+    "score_max": 5,
+    "part_au_dela_de_6": 0.0
   },
   "seuils": {
     "phrase_moyenne": {
@@ -23,12 +23,12 @@
     },
     "intensificateurs_1k": {
       "sens": ">",
-      "seuil": 6.02,
-      "median": 2.45
+      "seuil": 4.84,
+      "median": 1.23
     },
     "contrastes_1k": {
       "sens": ">",
-      "seuil": 1.25,
+      "seuil": 0.0,
       "median": 0.0
     },
     "not_only_1k": {
@@ -38,22 +38,22 @@
     },
     "connecteurs_par": {
       "sens": ">",
-      "seuil": 0.18,
-      "median": 0.07
+      "seuil": 0.1,
+      "median": 0.0
     },
     "triades_1k": {
       "sens": ">",
-      "seuil": 2.32,
+      "seuil": 1.24,
       "median": 0.0
     },
     "hedging_1k": {
       "sens": ">",
-      "seuil": 14.96,
-      "median": 8.71
+      "seuil": 6.5,
+      "median": 3.39
     },
     "metaphores_1k": {
       "sens": ">",
-      "seuil": 1.12,
+      "seuil": 0.0,
       "median": 0.0
     },
     "ouvertures_1k": {
@@ -63,7 +63,7 @@
     },
     "participiales_1k": {
       "sens": ">",
-      "seuil": 1.22,
+      "seuil": 0.0,
       "median": 0.0
     },
     "pct_long": {

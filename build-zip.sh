@@ -97,22 +97,37 @@ else
   ARCHIVE="$SKILL_NAME-$VERSION.zip"
 fi
 
-# --- l'analyseur fonctionne-t-il ? ---------------------------------------
+# --- l'analyseur fonctionne-t-il, dans les deux langues ? -----------------
+# Un témoin par langue. Le score attendu est celui qui a été mesuré : s'il
+# baisse, un détecteur a cessé de mordre ; s'il monte, un détecteur mord
+# quelque chose qu'il ignorait. Les deux méritent un coup d'œil avant publication.
+#
+# La langue est forcée plutôt que détectée : un témoin mal classé donnerait un
+# score flatteur, et le test passerait pour la mauvaise raison.
+temoin() {           # temoin <code> <fixture> <score attendu> <total attendu>
+  local code="$1" fixture="$2" attendu="$3" total="$4" ligne
+  [ -f "$fixture" ] || die "texte-témoin absent : $fixture"
+  # Sans le || true, pipefail ferait sortir le script en silence quand
+  # l analyseur plante, et le die ci-dessous ne serait jamais atteint.
+  ligne="$(python3 "$SRC/scripts/analyse.py" "$fixture" --langue "$code" 2>/dev/null \
+           | sed -n 's/^SCORE : \([0-9]*\) metriques hors cible sur \([0-9]*\).*/\1\/\2/p' \
+           || true)"
+  [ -n "$ligne" ] || die "analyse.py ne répond pas sur le témoin $code. Archive non construite."
+  if [ "$ligne" != "$attendu/$total" ]; then
+    die "le témoin $code donne $ligne au lieu de $attendu/$total. Les seuils ou les lexiques ont bougé ; vérifiez avant de publier, ou passez --skip-tests."
+  fi
+  ok "analyseur vérifié en $code (témoin : $ligne hors cible)"
+}
+
 if [ "$RUN_TESTS" -eq 1 ]; then
   if ! command -v python3 >/dev/null 2>&1; then
     printf '%s!%s python3 absent : impossible de vérifier l analyseur avant.\n' "$YELLOW" "$OFF"
   else
-    fixture="$SRC/references/exemple-texte-llm.md"
-    [ -f "$fixture" ] || die "texte-témoin absent : $fixture"
-    # Sans le || true, pipefail ferait sortir le script en silence quand
-    # l analyseur plante, et le die ci-dessous ne serait jamais atteint.
-    score="$(python3 "$SRC/scripts/analyse.py" "$fixture" 2>/dev/null \
-             | sed -n 's/^SCORE : \([0-9]*\) .*/\1/p' || true)"
-    [ -n "$score" ] || die "analyse.py ne répond pas. Archive non construite."
-    if [ "$score" != "9" ]; then
-      die "le texte-témoin donne $score/13 au lieu de 9. Les seuils ont bougé ; vérifiez avant de publier, ou passez --skip-tests."
-    fi
-    ok "analyseur vérifié (texte-témoin : 9/13 hors cible)"
+    for lang in fr en; do
+      [ -f "$SRC/lexiques/$lang.json" ] || die "fichier de langue absent : $SRC/lexiques/$lang.json"
+    done
+    temoin fr "$SRC/references/exemple-texte-llm-fr.md" 9 13
+    temoin en "$SRC/references/exemple-texte-llm-en.md" 17 17
   fi
 fi
 

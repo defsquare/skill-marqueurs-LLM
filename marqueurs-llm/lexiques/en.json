@@ -1,0 +1,890 @@
+{
+  "langue": "en",
+  "nom": "English",
+  "statut": "seuils mesures sur un corpus humain : Eric Evans, Domain-Driven Design, 2003, 99 965 mots, 1er/9e decile d'echantillons de 800 mots (voir calibration/README.md). Registre du corpus : prose technique de livre. Les lexiques sont tries terme a terme contre ce meme corpus.",
+  "accents_tolerants": false,
+  "marqueurs_desactives": [
+    "T2",
+    "T4",
+    "A"
+  ],
+  "detection": {
+    "mots_outils": [
+      "the",
+      "of",
+      "and",
+      "to",
+      "in",
+      "that",
+      "is",
+      "for",
+      "it",
+      "as",
+      "with"
+    ]
+  },
+  "metriques": [
+    "phrase_moyenne",
+    "phrase_ecart_type",
+    "cv",
+    "pct_long",
+    "pct_court",
+    "tirets_1k",
+    "intensificateurs_1k",
+    "contrastes_1k",
+    "not_only_1k",
+    "connecteurs_par",
+    "triades_1k",
+    "hedging_1k",
+    "metaphores_1k",
+    "ouvertures_1k",
+    "participiales_1k",
+    "specifique_1k",
+    "par_cv"
+  ],
+  "seuils": {
+    "base": {
+      "phrase_moyenne": {
+        "sens": ">",
+        "seuil": 21.32
+      },
+      "phrase_ecart_type": {
+        "sens": "<",
+        "seuil": 7.33
+      },
+      "cv": {
+        "sens": "<",
+        "seuil": 0.4
+      },
+      "pct_long": {
+        "sens": ">",
+        "seuil": 4.88
+      },
+      "pct_court": {
+        "sens": "<",
+        "seuil": 6.52
+      },
+      "tirets_1k": {
+        "sens": ">",
+        "seuil": 2.48
+      },
+      "intensificateurs_1k": {
+        "sens": ">",
+        "seuil": 4.84
+      },
+      "contrastes_1k": {
+        "sens": ">",
+        "seuil": 0.0
+      },
+      "not_only_1k": {
+        "sens": ">",
+        "seuil": 0.0
+      },
+      "connecteurs_par": {
+        "sens": ">",
+        "seuil": 0.1
+      },
+      "triades_1k": {
+        "sens": ">",
+        "seuil": 1.24
+      },
+      "hedging_1k": {
+        "sens": ">",
+        "seuil": 6.5
+      },
+      "metaphores_1k": {
+        "sens": ">",
+        "seuil": 0.0
+      },
+      "ouvertures_1k": {
+        "sens": ">",
+        "seuil": 0.0
+      },
+      "participiales_1k": {
+        "sens": ">",
+        "seuil": 0.0
+      },
+      "specifique_1k": {
+        "sens": "<",
+        "seuil": 11.22
+      },
+      "par_cv": {
+        "sens": "<",
+        "seuil": 0.29
+      }
+    },
+    "registres": {
+      "prose": {}
+    }
+  },
+  "lexiques": {
+    "intensificateurs": [
+      "essential",
+      "critical",
+      "fundamental",
+      "significant",
+      "crucial",
+      "meaningful",
+      "powerful",
+      "comprehensive",
+      "compelling",
+      "truly",
+      "extremely",
+      "vital",
+      "sheer",
+      "profound",
+      "significantly",
+      "fundamentally",
+      "seamless",
+      "cutting-edge",
+      "exceptional",
+      "outstanding",
+      "meticulously",
+      "paramount",
+      "genuinely",
+      "profoundly",
+      "indispensable",
+      "meticulous",
+      "immensely",
+      "tremendously",
+      "genuine",
+      "critically",
+      "remarkable",
+      "remarkably",
+      "seamlessly",
+      "innovative",
+      "state-of-the-art",
+      "unprecedented",
+      "pivotal",
+      "invaluable",
+      "undoubtedly",
+      "incredibly",
+      "utmost",
+      "transformative",
+      "groundbreaking",
+      "revolutionary",
+      "unparalleled",
+      "unmatched",
+      "unrivaled",
+      "world-class",
+      "best-in-class",
+      "top-notch",
+      "holistic",
+      "nuanced",
+      "impactful",
+      "actionable",
+      "instrumental",
+      "noteworthy",
+      "far-reaching",
+      "must-have",
+      "ever-evolving",
+      "ever-growing",
+      "rapidly evolving",
+      "dramatically",
+      "hugely",
+      "massively",
+      "vast",
+      "immense",
+      "stunning",
+      "breathtaking"
+    ],
+    "connecteurs": [
+      "however",
+      "moreover",
+      "furthermore",
+      "additionally",
+      "therefore",
+      "thus",
+      "hence",
+      "consequently",
+      "accordingly",
+      "nevertheless",
+      "nonetheless",
+      "ultimately",
+      "importantly",
+      "more importantly",
+      "notably",
+      "crucially",
+      "similarly",
+      "as such",
+      "in addition",
+      "in contrast",
+      "by contrast",
+      "in essence",
+      "in other words",
+      "in short",
+      "in summary",
+      "in conclusion",
+      "to summarize",
+      "at its core",
+      "that said",
+      "that being said",
+      "subsequently",
+      "lastly",
+      "first and foremost",
+      "last but not least"
+    ],
+    "connecteurs_forts": [
+      "it's worth noting",
+      "it is worth noting",
+      "it's important to note",
+      "it is important to note",
+      "it should be noted",
+      "it is worth mentioning",
+      "it bears mentioning",
+      "it is important to remember",
+      "needless to say",
+      "all in all",
+      "at the end of the day",
+      "simply put",
+      "put simply",
+      "to put it simply",
+      "in a nutshell",
+      "that is to say",
+      "it goes without saying",
+      "suffice it to say",
+      "in the final analysis",
+      "by and large",
+      "with that in mind",
+      "in this regard",
+      "to that end",
+      "as previously mentioned",
+      "as mentioned above",
+      "when it comes to"
+    ],
+    "hedging": [
+      "usually",
+      "perhaps",
+      "likely",
+      "tend to",
+      "tends to",
+      "typically",
+      "relatively",
+      "possibly",
+      "seems to",
+      "somewhat",
+      "generally",
+      "seem to",
+      "potentially",
+      "in some cases",
+      "essentially",
+      "largely",
+      "in principle",
+      "generally speaking",
+      "more or less",
+      "in many cases",
+      "may or may not",
+      "not necessarily",
+      "in practice",
+      "virtually",
+      "for the most part",
+      "in most cases",
+      "arguably",
+      "appears to",
+      "appear to",
+      "to some extent",
+      "in certain cases",
+      "under certain circumstances",
+      "to a degree",
+      "to varying degrees",
+      "in a sense",
+      "oftentimes",
+      "broadly speaking",
+      "one could argue",
+      "it could be argued",
+      "some would say"
+    ],
+    "metaphores": [
+      "at the heart of",
+      "cornerstone",
+      "cornerstones",
+      "landscape",
+      "landscapes",
+      "ecosystem",
+      "ecosystems",
+      "paradigm shift",
+      "paradigm shifts",
+      "game changer",
+      "game-changer",
+      "game changing",
+      "game-changing",
+      "double-edged sword",
+      "double edged sword",
+      "bridge the gap",
+      "bridging the gap",
+      "low-hanging fruit",
+      "north star",
+      "silver bullet",
+      "silver bullets",
+      "treasure trove",
+      "moving forward",
+      "pave the way",
+      "paves the way",
+      "paving the way",
+      "shed light on",
+      "sheds light on",
+      "dive into",
+      "dives into",
+      "diving into",
+      "deep dive",
+      "deep-dive",
+      "unlock",
+      "unlocks",
+      "unlocked",
+      "unlocking",
+      "tapestry",
+      "rich tapestry",
+      "testament to",
+      "in the realm of",
+      "underscore",
+      "underscores",
+      "underscored",
+      "underscoring",
+      "boast",
+      "boasts",
+      "boasting",
+      "showcase",
+      "showcases",
+      "showcased",
+      "showcasing",
+      "harness",
+      "harnesses",
+      "harnessed",
+      "harnessing",
+      "empower",
+      "empowers",
+      "empowered",
+      "empowering",
+      "empowerment",
+      "myriad",
+      "plethora",
+      "unleash",
+      "unleashes",
+      "unleashing",
+      "spearhead",
+      "spearheads",
+      "spearheading",
+      "revolutionize",
+      "revolutionizes",
+      "revolutionizing",
+      "revolutionise",
+      "embark",
+      "embarks",
+      "embarking"
+    ],
+    "ouvertures": [
+      "in today's",
+      "in a world where",
+      "in an era where",
+      "in the age of",
+      "in an increasingly",
+      "in the ever-evolving",
+      "gone are the days",
+      "now more than ever",
+      "picture this",
+      "imagine a world",
+      "have you ever wondered",
+      "you might be wondering",
+      "whether you're",
+      "let's dive",
+      "let's delve",
+      "let's explore",
+      "let's take a closer look",
+      "let's break it down",
+      "buckle up",
+      "welcome to the world of",
+      "one thing is certain",
+      "one thing is clear",
+      "only time will tell",
+      "this is just the beginning",
+      "the possibilities are endless",
+      "we've only scratched the surface",
+      "as we look ahead",
+      "stay tuned",
+      "the key takeaway",
+      "hope this helps"
+    ],
+    "faux_amis": {}
+  },
+  "motifs": {
+    "contraste": [
+      {
+        "motif": "\\b(?:(?:is|are|was|were)\\s+not|(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had)n['’]t)\\s+(?:just\\s+|only\\s+|merely\\s+|simply\\s+)?(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,45}[,—]\\s*(?:it|this|that|they|we)(?:['’]s|['’]re|\\s+is|\\s+are|\\s+was|\\s+were)\\b",
+        "detail": "negation + reprise pronominale"
+      },
+      {
+        "motif": "\\b(?:It|This|That|They|We)(?:['’]s|['’]re|\\s+is|\\s+are)\\s+not\\s+(?:just\\s+|only\\s+|merely\\s+|simply\\s+)?(?:an?|the|about)\\s[^,.!?;:]{2,40}\\.\\s+(?:It|This|That|They|We)(?:['’]s|['’]re|\\s+is|\\s+are)\\s+(?:an?|the|about|what|how|why)\\b",
+        "detail": "'It's not X. It's Y.'"
+      },
+      {
+        "motif": "\\bnot\\s+(?:just|only|merely|simply)\\s+(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,45}\\s+but\\b",
+        "detail": "'not just X but Y'"
+      },
+      {
+        "motif": "\\b(?:isn['’]t|aren['’]t|(?:is|are|was|were)\\s+not)\\s+about\\s+(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,45}[,;—.]\\s*(?:it|this|that|they|we)(?:['’]s|['’]re|\\s+is|\\s+are|\\s+was|\\s+were)\\s+about\\b",
+        "detail": "'isn't about X, it's about Y'"
+      }
+    ],
+    "not_only": "\\bnot\\s+only\\b[^.!?;]{0,100}?\\b(?:but|and)\\b[^.!?;]{0,60}?\\b(?:also|too|as\\s+well|equally)\\b|\\bnot\\s+only\\b[^.!?;]{0,90}?\\b(?:it|they|he|she|we)\\s+(?:also|too)\\b",
+    "participiale_finale": ",\\s+(?:enabling|ensuring|empowering|unlocking|streamlining|simplifying|optimi[sz]ing|fostering|facilitating|accelerating|boosting|maximi[sz]ing|minimi[sz]ing|transforming|strengthening|reinforcing|solidifying|cementing|positioning|showcasing|underscoring|highlighting|signal?ling|delivering|offering|yielding|driving|powering|fuel?ling|sparking|ushering in|paving the way|setting the stage|culminating in|translating into|contributing to|adding to|amounting to|preventing|eliminating|freeing|saving|cutting|lowering|raising|increasing|improving|reducing|expanding|extending|broadening|deepening|promoting|encouraging|supporting)\\b[^.!?;:,]{0,90}[.!?](?:\\s|$)",
+    "triade_determinant": "(?:the|a|an|this|that|these|those|its|their|his|her|our|your|my|every|each)",
+    "triade_espace_apres_determinant": true,
+    "triade_conjonctions_exclues": "(?:and|or|but|nor|which|that|who|when|while|because)",
+    "triade_mots_vides": "(?:the|a|an|of|in|on|at|by|with|for|from|to|as|and|or|is|are|was|were|be|been|it|its|this|that|these|those|which|who|whom|whose|when|while|but|not|there|then|than|so|if|we|you|they|he|she|his|her|our|your|my|their|has|have|had|do|does|did|can|could|will|would|may|might|must|should|shall|about|into|onto|over|under|between|through|during|within|without|such|more|most|less|least|any|each|every|no|nor|because|since|although|though|however|thus|therefore|including|excluding|especially|namely|perhaps|mostly|often|usually|greatly|largely|simply|just|only|even|also|still|yet|both|either|neither|one|two|three|first|second|third|following|never|always)",
+    "triade_virgule_serie": true,
+    "coordination": "(?:and|or)"
+  },
+  "mots_capitalises_courants": [
+    "The",
+    "A",
+    "An",
+    "This",
+    "That",
+    "These",
+    "Those",
+    "It",
+    "They",
+    "We",
+    "You",
+    "I",
+    "He",
+    "She",
+    "If",
+    "When",
+    "While",
+    "Because",
+    "Although",
+    "Though",
+    "But",
+    "And",
+    "Or",
+    "So",
+    "Yet",
+    "For",
+    "Nor",
+    "In",
+    "On",
+    "At",
+    "By",
+    "With",
+    "From",
+    "To",
+    "Of",
+    "As",
+    "Not",
+    "No",
+    "Yes",
+    "There",
+    "Here",
+    "Then",
+    "Thus",
+    "Now",
+    "Once",
+    "After",
+    "Before",
+    "During",
+    "Since",
+    "Until",
+    "Where",
+    "What",
+    "Which",
+    "Who",
+    "Whose",
+    "How",
+    "Why",
+    "Each",
+    "Every",
+    "Some",
+    "Any",
+    "All",
+    "Both",
+    "Either",
+    "Neither",
+    "One",
+    "Two",
+    "Three",
+    "First",
+    "Second",
+    "Third",
+    "Next",
+    "Last",
+    "Other",
+    "Another",
+    "Such",
+    "Same",
+    "More",
+    "Most",
+    "Less",
+    "Least",
+    "Many",
+    "Much",
+    "Few",
+    "Several",
+    "However",
+    "Moreover",
+    "Therefore",
+    "Instead",
+    "Rather",
+    "Perhaps",
+    "Often",
+    "Usually",
+    "Sometimes",
+    "Always",
+    "Never",
+    "Also",
+    "Even",
+    "Still",
+    "Just",
+    "Only",
+    "Its",
+    "Their",
+    "His",
+    "Her",
+    "Our",
+    "My",
+    "Your",
+    "Figure",
+    "Table",
+    "Chapter",
+    "Part",
+    "Section"
+  ],
+  "abreviations": [
+    "Mr.",
+    "Mrs.",
+    "Ms.",
+    "Dr.",
+    "Prof.",
+    "Inc.",
+    "Ltd.",
+    "Co.",
+    "vs.",
+    "e.g.",
+    "i.e.",
+    "etc.",
+    "cf.",
+    "Fig.",
+    "St.",
+    "Jr.",
+    "Sr.",
+    "U.S.",
+    "p.",
+    "pp.",
+    "No.",
+    "Vol."
+  ],
+  "_surveillance": {
+    "note": "Termes et motifs mesures sur Evans mais non retenus : trop presents chez l'auteur humain pour etre signales seuls. Conserves ici avec leur frequence pour la prochaine calibration, pas lus par les scripts. Un seul de ces motifs est branche, not_only_but_also, et son entree dit pourquoi.",
+    "corpus": "evans-ddd-2003.txt, 99 965 mots",
+    "termes": [
+      {
+        "liste": "intensificateurs",
+        "terme": "robust",
+        "freq_evans_1k": 0.07,
+        "motif": "0,07/1k mais mot technique legitime en 2026 (« robust design », « robust error handling ») : ne pas le signaler seul."
+      },
+      {
+        "liste": "intensificateurs",
+        "terme": "versatile",
+        "freq_evans_1k": 0.04,
+        "motif": "0,04/1k mais adjectif honnete pour decrire un outil ; garder pour la densite, ne pas le pointer seul."
+      },
+      {
+        "liste": "intensificateurs",
+        "terme": "substantially",
+        "freq_evans_1k": 0.0,
+        "motif": "0 chez Evans mais registre formel legitime (juridique, mesure) ; garder sans le pointer."
+      },
+      {
+        "liste": "intensificateurs",
+        "terme": "highly",
+        "freq_evans_1k": 0.17,
+        "motif": "0,17/1k. Evans ecrit « highly cohesive », « highly variable » : l'adverbe est technique autant que promotionnel."
+      },
+      {
+        "liste": "intensificateurs",
+        "terme": "intricate",
+        "freq_evans_1k": 0.09,
+        "motif": "0,09/1k, Evans ecrit « intricate parts » ; le tic LLM est « intricate details » — a garder pour la densite seulement."
+      },
+      {
+        "liste": "hedging",
+        "terme": "may",
+        "freq_evans_1k": 2.681,
+        "motif": "2,68/1k. Le modal domine la metrique : a garder pour la densite, jamais a montrer a l'auteur comme une faute."
+      },
+      {
+        "liste": "hedging",
+        "terme": "could",
+        "freq_evans_1k": 1.771,
+        "motif": "1,77/1k. Meme raison."
+      },
+      {
+        "liste": "hedging",
+        "terme": "might",
+        "freq_evans_1k": 1.09,
+        "motif": "1,09/1k. Meme raison."
+      },
+      {
+        "liste": "hedging",
+        "terme": "often",
+        "freq_evans_1k": 1.11,
+        "motif": "1,11/1k. Adverbe de frequence, pas une attenuation : deuxieme contributeur apres les modaux. Garder pour la densite, ne jamais le pointer."
+      },
+      {
+        "liste": "metaphores",
+        "terme": "backbone",
+        "freq_evans_1k": 0.02,
+        "motif": "deux occurrences, dans le même passage, et elles sont bonnes (« use the model as the backbone of a language ») ; à garder au catalogue mais hors du comptage automatique, ou via le motif backbone_llm."
+      },
+      {
+        "liste": "metaphores",
+        "terme": "delve",
+        "freq_evans_1k": 0.06,
+        "motif": "LE piège de la catégorie : six occurrences chez Evans (delve/delves/delved/delving), toutes en renvoi de chapitre — « Chapter 14 delves into how to decide ». Le mot n'est pas la signature ; l'invitation l'est (« let's delve into the world of »). À déplacer dans le motif delve_llm."
+      },
+      {
+        "liste": "metaphores",
+        "terme": "streamline",
+        "freq_evans_1k": 0.03,
+        "motif": "trois occurrences, toutes techniques et littérales (« streamlining associations », « streamlines access »). Le verbe n'est creux qu'appliqué à un processus abstrait — d'où le motif streamline_llm."
+      }
+    ],
+    "motifs": [
+      {
+        "nom": "contraste_reprise_pointvirgule",
+        "freq_evans_1k": 0.11,
+        "motif": "Meme figure au point-virgule, mais c'est la signature d'Evans lui-meme : 11 occurrences, dont 'A domain model is not a particular diagram; it is the idea that the diagram is intended to convey.' En anglais technique de livre, le point-virgule correctif est une articulation legitime, pas un tic. A compter separement et a ne declencher qu'en densite."
+      },
+      {
+        "nom": "contraste_comparatif",
+        "freq_evans_1k": 0.01,
+        "motif": "Recadrage par comparatif ('is less about X than', 'more than just a', 'not so much X as'). 1 occurrence chez Evans, mais l'echantillon est trop mince pour trancher : le motif ne repose que sur trois tournures figees."
+      },
+      {
+        "nom": "participiale_finale_large",
+        "freq_evans_1k": 0.37,
+        "motif": "La meme en y ajoutant les participes ordinaires (allowing, making, keeping, helping, letting) : 37 occurrences chez Evans, dont 9 pour le seul 'making'. Ces participes-la sont de l'anglais courant. A garder pour mesurer une densite globale, pas pour signaler une phrase."
+      },
+      {
+        "nom": "not_only_but_also",
+        "freq_evans_1k": 0.03,
+        "motif": "3 occurrences chez Evans avec la version elargie ('not only X, it also Y' en plus de 'but also'), 9 pour 'not only' nu. Le seuil actuel de seuils-en.json est 'toute occurrence' : c'est trop dur, Evans ecrit cette tournure. A remonter a 2 occurrences ou a reserver aux textes courts.",
+        "statut": "branche malgre tout sur motifs.not_only : sans lui la metrique not_only_1k vaudrait zero en permanence, et zero se lit comme un compliment. Le seuil derive est 0,00, donc toute occurrence pose une question ; 3 des 119 echantillons d'Evans la posent aussi."
+      },
+      {
+        "nom": "titre_title_case",
+        "freq_evans_1k": 0.0,
+        "motif": "0 occurrence chez Evans, mais le chiffre ne prouve rien : le corpus est de la prose sans aucun titre. Controle fait a la main : 5 titres title-case sur 5 captures, 6 titres en casse de phrase sur 6 epargnes, et aucune des phrases d'Evans ne passerait pour un titre. Motif plausible, mais non calibre — il lui faut un corpus a titres."
+      }
+    ],
+    "motifs_regex_non_branches": {
+      "note": "Motifs plus etroits proposes en remplacement de termes rejetes (true, key, core, particularly...). Le moteur ne sait charger une regex que dans motifs.contraste, not_only et participiale_finale : ceux-ci attendent une extension du schema, ou le catalogue.",
+      "intensificateurs": [
+        {
+          "nom": "true_emphatique",
+          "regex": "\\b(?:a|the)\\s+true\\s+[a-z]+\\b",
+          "occurrences_evans": 5,
+          "exemples_evans": [
+            "…e sketch will take on some of the fluidity of spoken words, a true part of the discussion. After all, UML stands for Unified Modeli…",
+            "…tunity needs to be recognized and grasped. Chapter 8 tells the true story of a project on which a process of refactoring toward deepe…",
+            "…th it. To convey what this experience feels like, I'll tell a true story of a project I worked on some years ago, and how we arrived…"
+          ],
+          "commentaire": "Remplace le mot « true » : attrape « a true cornerstone », laisse passer « ring true » et « true unique key »."
+        },
+        {
+          "nom": "role_qualifie",
+          "regex": "\\bplays?\\s+(?:an?|the)\\s+(?:\\w+\\s+){0,2}(?:crucial|critical|key|vital|pivotal|significant|essential|central|major|important)\\s+role\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "La formule « plays a crucial role », zero occurrence chez Evans."
+        },
+        {
+          "nom": "key_takeaway",
+          "regex": "\\bkey\\s+(?:takeaways?|benefits?|insights?|differentiators?|advantages?|considerations?|challenges?|principles?)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "Remplace le mot « key » sans attraper « foreign key »."
+        },
+        {
+          "nom": "focus_amplifie",
+          "regex": "\\b(?:particularly|especially)\\s+(?:important|crucial|critical|useful|valuable|relevant|notable|powerful|effective)\\b",
+          "occurrences_evans": 5,
+          "exemples_evans": [
+            "…y as much to individual objects as to Modules, but they are particularly important at this larger grain of modeling and design. These terms ha…",
+            "…integration. These three principles, useful separately but particularly powerful taken together, help to produce good designs—even in a spra…",
+            "…tinct ones. Contact points with other Bounded Contexts are particularly important to test. Tests help compensate for the subtleties of transl…"
+          ],
+          "commentaire": "Remplace « particularly »/« especially » nus."
+        },
+        {
+          "nom": "importance_indicible",
+          "regex": "\\b(?:cannot|can(?:'|’)t|can\\s+not)\\s+be\\s+(?:overstated|overemphasized|understated)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "« The importance of X cannot be overstated » : zero chez Evans."
+        },
+        {
+          "nom": "importance_supreme",
+          "regex": "\\bof\\s+(?:utmost|paramount|critical|vital)\\s+(?:importance|significance)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "Zero chez Evans."
+        },
+        {
+          "nom": "potentiel_total",
+          "regex": "\\b(?:full|true|untapped)\\s+potential\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "Zero chez Evans."
+        },
+        {
+          "nom": "adv_intens_adj",
+          "regex": "\\b(?:incredibly|remarkably|exceptionally|extraordinarily|profoundly|tremendously|immensely)\\s+[a-z]+\\b",
+          "occurrences_evans": 3,
+          "exemples_evans": [
+            "…sed under the set of XML documents. The property of closure tremendously simplifies the interpretation of an operation, and it is easy to think…",
+            "…culture without the Great Wall, the Wall's construction was immensely expensive and bankrupted at least one dynasty, probably contributing…",
+            "…e vagaries of individual interpretation. Unless there is an exceptionally high level of communication on the team, the Vision Statement al…"
+          ],
+          "commentaire": "Adverbe d'intensite empile sur un adjectif. 3 occurrences chez Evans, toutes justifiees (« tremendously simplifies », « immensely expensive », « exceptionally high »). « highly » est volontairement exclu du motif : a 0,17/1k il ferait trop de bruit."
+        },
+        {
+          "nom": "depend_contexte",
+          "regex": "\\bdepend(?:s|ing)?\\s+on\\s+(?:the\\s+)?(?:specific|particular|context|situation|use\\s+case|circumstances?)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "La reserve creuse « depends on your specific use case », zero chez Evans, alors que « depending on » nu y est a 0,13/1k."
+        },
+        {
+          "nom": "hedge_double",
+          "regex": "\\b(?:may|might|could)\\s+(?:be\\s+)?(?:considered|viewed|seen|regarded|thought\\s+of)\\s+as\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": [],
+          "commentaire": "Attenuation redoublee, zero chez Evans."
+        },
+        {
+          "nom": "hedge_empile",
+          "regex": "\\b(?:may|might|could|can)\\s+(?:potentially|possibly|perhaps|sometimes|often|generally|typically|arguably)\\b",
+          "occurrences_evans": 7,
+          "exemples_evans": [
+            "…er and interpreting the user's commands. The external actor might sometimes be another computer system rather than a human user. Appli…",
+            "…ponents or get feedback from users. This kind of congestion can often be eased by a Model-Driven prototype of a key component, ev…",
+            "…lopment. Here we have an example of a \"simplest thing that could possibly work\" that actually becomes possible because of a more soph…"
+          ],
+          "commentaire": "Modal + adverbe d'attenuation. 7 occurrences chez Evans : « can often », « might sometimes », « could possibly ». Faible mais non nul, donc a compter dans la densite plutot qu'a signaler seul."
+        }
+      ],
+      "metaphores": [
+        {
+          "nom": "delve_llm",
+          "regex": "\\b(?:let'?s|we(?:'?ll| will)?)\\s+delve\\b|\\bdelv(?:e|es|ing)\\s+deeper\\b|\\bdelv(?:e|es|ed|ing)\\s+into\\s+the\\s+(?:world|realm|intricacies|nuances|heart|fascinating)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "leverage_llm",
+          "regex": "\\bleverag(?:e|es|ed|ing)\\s+the\\s+(?:power|potential|full\\s+\\w+)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "landscape_llm",
+          "regex": "\\b(?:ever[- ]changing|evolving|shifting|changing|current|modern|digital|competitive)\\s+landscape\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "harness_llm",
+          "regex": "\\bharness(?:es|ed|ing)?\\s+the\\s+(?:power|potential|capabilities|full)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "unlock_llm",
+          "regex": "\\bunlock(?:s|ed|ing)?\\s+(?:the\\s+|new\\s+)?(?:potential|power|value|insights|possibilities|opportunities)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "navigate_llm",
+          "regex": "\\bnavigat(?:e|es|ed|ing)\\s+the\\s+(?:complex\\w*|challeng\\w+|landscape|nuances|intricacies|maze)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "streamline_llm",
+          "regex": "\\bstreamlin(?:e|es|ed|ing)\\s+(?:the\\s+)?(?:process|processes|workflow|workflows|operations|experience|journey)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "backbone_llm",
+          "regex": "\\bthe\\s+backbone\\s+of\\s+(?:the\\s+)?(?:modern|our|today|digital|global|entire)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "building_block_llm",
+          "regex": "\\bbuilding\\s+blocks?\\s+(?:of|for)\\s+(?:a\\s+|the\\s+)?(?:successful|modern|robust|thriving|effective)\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "cornerstone_llm",
+          "regex": "\\bcornerstones?\\s+of\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        },
+        {
+          "nom": "testament_llm",
+          "regex": "\\b(?:is|as|stands as)\\s+an?\\s+testament\\s+to\\b|\\ba\\s+testament\\s+to\\b",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        }
+      ],
+      "connecteurs": {
+        "meublage_note": "\\bit(?:['’]s| is)\\s+(?:worth\\s+(?:noting|mentioning|pointing\\s+out)|important\\s+to\\s+(?:note|remember|understand|recognize)|essential\\s+to\\s+(?:note|remember))\\b|\\bit\\s+should\\s+be\\s+noted\\b|\\bit\\s+bears\\s+(?:noting|mentioning|repeating)\\b",
+        "meublage_reformule": "\\b(?:simply\\s+put|put\\s+simply|to\\s+put\\s+it\\s+simply|in\\s+a\\s+nutshell|that\\s+is\\s+to\\s+say|needless\\s+to\\s+say|it\\s+goes\\s+without\\s+saying|suffice\\s+it\\s+to\\s+say|in\\s+the\\s+final\\s+analysis|all\\s+in\\s+all|at\\s+the\\s+end\\s+of\\s+the\\s+day|by\\s+and\\s+large|when\\s+it\\s+comes\\s+to|with\\s+that\\s+in\\s+mind|in\\s+this\\s+regard|to\\s+that\\s+end|as\\s+previously\\s+mentioned|as\\s+mentioned\\s+above)\\b",
+        "ouverture_attaque": "\\b(?:in\\s+today['’]?s|in\\s+a\\s+world\\s+where|in\\s+an\\s+era\\s+(?:where|of)|in\\s+the\\s+age\\s+of|in\\s+an\\s+increasingly|in\\s+the\\s+ever[- ]evolving|gone\\s+are\\s+the\\s+days|now\\s+more\\s+than\\s+ever|picture\\s+this|imagine\\s+a\\s+world|have\\s+you\\s+ever\\s+wondered|you\\s+might\\s+be\\s+wondering|whether\\s+you(?:['’]?re|\\s+are)|let['’]?s\\s+(?:dive|delve|explore|take\\s+a\\s+closer\\s+look|break\\s+it\\s+down)|buckle\\s+up|welcome\\s+to\\s+the\\s+world\\s+of)\\b",
+        "ouverture_cloture": "\\b(?:in\\s+conclusion|to\\s+wrap\\s+up|wrapping\\s+up|in\\s+closing|one\\s+thing\\s+is\\s+(?:certain|clear)|only\\s+time\\s+will\\s+tell|this\\s+is\\s+just\\s+the\\s+beginning|the\\s+possibilities\\s+are\\s+endless|we['’]?ve\\s+only\\s+scratched\\s+the\\s+surface|as\\s+we\\s+look\\s+ahead|the\\s+journey\\s+(?:doesn['’]?t\\s+end|is\\s+just\\s+beginning)|stay\\s+tuned|the\\s+key\\s+takeaway|hope\\s+this\\s+helps)\\b"
+      },
+      "syntaxe": [
+        {
+          "nom": "contraste_reprise_pointvirgule",
+          "regex": "\\b(?:(?:is|are|was|were)\\s+not|(?:is|are|was|were|do|does|did|can|could|will|would|should|has|have|had)n['’]t)\\s+(?:just\\s+|only\\s+|merely\\s+|simply\\s+)?(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,45}[;:]\\s*(?:it|this|that|they|we)(?:['’]s|['’]re|\\s+is|\\s+are|\\s+was|\\s+were)\\b",
+          "occurrences_evans": 11,
+          "exemples_evans": [
+            "A domain model is not a particular diagram; it is the idea that the diagram is intended to convey. It is not just the k",
+            "Identity is not intrinsic to a thing in the world; it is a meaning superimposed because it is useful. In fact, the same real-w",
+            "the model we are looking for is not just a nice set of ideas: it is the foundation of the system."
+          ]
+        },
+        {
+          "nom": "contraste_comparatif",
+          "regex": "\\b(?:is|are|was|were)\\s+less\\s+about\\s+(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,40}\\s+than\\b|\\bmore\\s+than\\s+just\\s+an?\\s|\\bnot\\s+so\\s+much\\s+(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,40}\\s+as\\s+(?:an?|the)\\s",
+          "occurrences_evans": 1,
+          "exemples_evans": [
+            "r policy, the pattern becomes more than just a useful implementation technique (though that too is valuable as far as"
+          ]
+        },
+        {
+          "nom": "participiale_finale_large",
+          "regex": ",\\s+(?:enabling|ensuring|empowering|unlocking|streamlining|simplifying|optimi[sz]ing|fostering|facilitating|accelerating|boosting|maximi[sz]ing|minimi[sz]ing|transforming|strengthening|reinforcing|solidifying|cementing|positioning|showcasing|underscoring|highlighting|signal?ling|delivering|offering|yielding|driving|powering|fuel?ling|sparking|ushering in|paving the way|setting the stage|culminating in|translating into|contributing to|adding to|amounting to|preventing|eliminating|freeing|saving|cutting|lowering|raising|increasing|improving|reducing|expanding|extending|broadening|deepening|promoting|encouraging|supporting|allowing|making|keeping|helping|letting|giving|providing|creating|bringing|maintaining|preserving|producing|generating|leading to|resulting in|turning|shifting|reflecting|demonstrating|avoiding|marking|permitting|prompting|triggering)\\b[^.!?;:,]{0,90}[.!?](?:\\s|$)",
+          "occurrences_evans": 37,
+          "exemples_evans": [
+            "bers' in-sight into the domain, letting them see more clearly and leading to further refinement of the model. These models are never perfect; they evolve. They must be practical an",
+            "ed only to analyze them enough, making their entire domain model cohesive. This self-imposed limitation forced them to create just the kind of en",
+            "uld be evaluated realistically, making no assumptions that the upstream will accommodate downstream needs. Sometimes we overestimate the value or underestimate the cost of such"
+          ]
+        },
+        {
+          "nom": "titre_title_case",
+          "regex": "^\\s{0,3}#{1,6}\\s+[A-Z][\\w'’-]*(?:\\s+(?:[A-Z][\\w'’-]*|(?:a|an|the|and|but|or|nor|for|so|yet|at|by|in|of|on|to|up|as|is|it|its|with|from|into|over|than|that|via|per|are|be)|\\d[\\w-]*)){2,11}\\s*$",
+          "occurrences_evans": 0,
+          "exemples_evans": []
+        }
+      ]
+    }
+  }
+}

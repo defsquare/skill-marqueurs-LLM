@@ -119,22 +119,28 @@ fi
 
 # --- test de fumée --------------------------------------------------------
 if command -v python3 >/dev/null 2>&1; then
-  fixture="$DEST/references/exemple-texte-llm.md"
-  if [ -f "$fixture" ]; then
+  # Un témoin par langue : un en.json cassé ne se verrait pas sur le français.
+  for t in "fr:9:13" "en:17:17"; do
+    code="${t%%:*}"; reste="${t#*:}"; attendu="${reste%%:*}"; total="${reste#*:}"
+    fixture="$DEST/references/exemple-texte-llm-$code.md"
+    [ -f "$fixture" ] || continue
     # Sans le || true, pipefail ferait sortir le script en silence quand
     # l analyseur plante, et le message d avertissement ne sortirait jamais.
-    score="$(python3 "$DEST/scripts/analyse.py" "$fixture" 2>/dev/null \
-             | sed -n 's/^SCORE : \([0-9]*\) .*/\1/p' || true)"
-    if [ "$score" = "9" ]; then
-      printf '%s✓%s analyseur fonctionnel (texte-témoin : 9/13 hors cible)\n' "$GREEN" "$OFF"
+    score="$(python3 "$DEST/scripts/analyse.py" "$fixture" --langue "$code" 2>/dev/null \
+             | sed -n 's/^SCORE : \([0-9]*\) metriques hors cible sur \([0-9]*\).*/\1\/\2/p' \
+             || true)"
+    if [ "$score" = "$attendu/$total" ]; then
+      printf '%s✓%s analyseur fonctionnel en %s (témoin : %s hors cible)\n' \
+        "$GREEN" "$OFF" "$code" "$score"
     elif [ -n "$score" ]; then
-      printf '%s!%s analyseur fonctionnel mais le texte-témoin donne %s/13 au lieu de 9.\n' \
-        "$YELLOW" "$OFF" "$score"
+      printf '%s!%s analyseur fonctionnel mais le témoin %s donne %s au lieu de %s/%s.\n' \
+        "$YELLOW" "$OFF" "$code" "$score" "$attendu" "$total"
+      printf '  Les seuils ou les lexiques ont peut-être été modifiés.\n'
     else
       printf '%s!%s analyse.py ne répond pas comme attendu. Vérifiez :\n' "$YELLOW" "$OFF"
       printf '    python3 "%s" "%s"\n' "$DEST/scripts/analyse.py" "$fixture"
     fi
-  fi
+  done
 else
   printf '%s!%s python3 introuvable sur cette machine. La skill est installée mais\n' \
     "$YELLOW" "$OFF"

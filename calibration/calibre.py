@@ -43,7 +43,10 @@ MOT = re.compile(r"[^\W\d_]+(?:['’-][^\W\d_]+)*|\d+(?:[.,]\d+)*")
 
 
 def groupe(termes):
-    parts = [re.escape(t).replace(r"\ ", r"\s+").replace("'", "['’]")
+    # re.escape ne protege plus l'espace depuis Python 3.7 : on couvre les deux
+    # formes, sinon un terme en deux mots ne survit pas a un retour a la ligne.
+    parts = [re.escape(t).replace(r"\ ", r"\s+").replace(" ", r"\s+")
+             .replace("\\'", "['’]").replace("'", "['’]")
              for t in sorted(termes, key=len, reverse=True)]
     return "(?:" + "|".join(parts) + ")"
 
@@ -55,26 +58,44 @@ class Langue:
         d = json.loads(pathlib.Path(chemin).read_text())
         self.code = d["langue"]
         lx = d["lexiques"]
-        self.re_intens = re.compile(r"\b" + groupe(lx["intensificateurs"]) + r"\b", re.I)
-        self.re_connect = re.compile(r"\b" + groupe(lx["connecteurs"]) + r"\b", re.I)
-        self.re_metaph = re.compile(r"\b" + groupe(lx["metaphores"]) + r"\b", re.I)
-        self.re_hedge = re.compile(r"\b" + groupe(lx["hedging"]) + r"\b", re.I)
-        self.re_ouvert = re.compile(r"\b" + groupe(lx["ouvertures"]) + r"\b", re.I)
+        self.re_intens = re.compile(r"\b" + groupe(lx["intensificateurs"]) + r"\b", re.I | re.M)
+        self.re_metaph = re.compile(r"\b" + groupe(lx["metaphores"]) + r"\b", re.I | re.M)
+        self.re_hedge = re.compile(r"\b" + groupe(lx["hedging"]) + r"\b", re.I | re.M)
+        self.re_ouvert = re.compile(r"\b" + groupe(lx["ouvertures"]) + r"\b", re.I | re.M)
+        # Les connecteurs ordinaires ne comptent qu'en tete de phrase, les
+        # "forts" partout. C'est la regle de scripts/analyse.py, et un seuil
+        # doit mesurer exactement ce que mesure l'outil qui s'en sert : compter
+        # ici la forme nue gonflait le numerateur d'un "in addition to" ou d'un
+        # "however" en incise, qui ne sont pas des connecteurs de transition.
+        self.re_connect_debut = re.compile(
+            r"(?:^|(?<=[.!?…]\s))\s*" + groupe(lx["connecteurs"]) + r"\b", re.I | re.M)
+        forts = lx.get("connecteurs_forts")
+        self.re_connect_forts = (re.compile(r"\b" + groupe(forts) + r"\b", re.I | re.M)
+                                 if forts else None)
         m = d["motifs"]
-        self.re_contrast = [re.compile(p, re.I) for p in m["contraste"]]
-        self.re_not_only = re.compile(m["not_only"], re.I)
-        self.re_particip = re.compile(m["participiale_finale"], re.I)
-        det, coord = m["triade_determinant"], m["coordination"]
-        item = det + r"\s+(?:(?!\s" + coord + r"\s)[^,;:.!?()\[\]—]){2,40}"
-        self.re_triade_nom = re.compile(
-            r"\b(" + item + r"),\s*(" + item + r"),?\s+" + coord + r"\s+("
-            + item + r")(?=[.,;:!?)\]]|$)", re.I)
+        # Une entree de "contraste" est une regex, ou {"motif": ..., "detail": ...}
+        # quand l'occurrence merite d'etre nommee. Meme forme que dans analyse.py.
+        self.re_contrast = [
+            re.compile(p["motif"] if isinstance(p, dict) else p, re.I | re.M)
+            for p in m["contraste"]]
+        self.re_not_only = re.compile(m["not_only"], re.I | re.M)
+        self.re_particip = re.compile(m["participiale_finale"], re.I | re.M)
+        coord = m["coordination"]
+        oxford = ",?" if m.get("triade_virgule_serie", True) else ""
+
+        def triple(item):
+            return re.compile(r"\b(" + item + r"),\s*(" + item + r")" + oxford
+                              + r"\s+" + coord + r"\s+(" + item + r")"
+                              + r"(?=[.,;:!?)\]]|$)", re.I | re.M)
+
+        det = m["triade_determinant"]
+        esp = r"\s+" if m.get("triade_espace_apres_determinant", True) else ""
+        excl = m.get("triade_conjonctions_exclues") or coord
+        self.re_triade_nom = triple(
+            det + esp + r"(?:(?!\s" + excl + r"\s)[^,;:.!?()\[\]—]){2,40}")
         mv = m["triade_mots_vides"]
         w = r"(?!" + mv + r"\b)[^\W\d_][\w'’-]*"
-        w = w + r"(?:\s+" + w + r"){0,2}"
-        self.re_triade_adj = re.compile(
-            r"\b(" + w + r"),\s*(" + w + r"),?\s+" + coord + r"\s+("
-            + w + r")(?=[.,;:!?)\]]|$)", re.I)
+        self.re_triade_adj = triple(w + r"(?:\s+" + w + r"){0,2}")
         self.capitalises = set(d["mots_capitalises_courants"])
         self.abreviations = d["abreviations"]
 
@@ -119,6 +140,9 @@ def mesure(langue, paragraphes):
     pmoy = statistics.fmean(par_long)
     pet = statistics.pstdev(par_long) if len(par_long) > 1 else 0.0
     n_contrast = sum(len(r.findall(texte)) for r in langue.re_contrast)
+    n_connect = len(langue.re_connect_debut.findall(texte))
+    if langue.re_connect_forts is not None:
+        n_connect += len(langue.re_connect_forts.findall(texte))
     return {
         "mots": sum(L),
         "phrase_moyenne": moy,
@@ -130,7 +154,7 @@ def mesure(langue, paragraphes):
         "intensificateurs_1k": len(langue.re_intens.findall(texte)) / k,
         "contrastes_1k": n_contrast / k,
         "not_only_1k": len(langue.re_not_only.findall(texte)) / k,
-        "connecteurs_par": len(langue.re_connect.findall(texte)) / len(paragraphes),
+        "connecteurs_par": n_connect / len(paragraphes),
         "triades_1k": (len(langue.re_triade_nom.findall(texte))
                        + len(langue.re_triade_adj.findall(texte))) / k,
         "hedging_1k": len(langue.re_hedge.findall(texte)) / k,
