@@ -68,9 +68,26 @@ METRIQUES = [
     ("metaphores_1k",       "Metaphores par defaut / 1000 mots",       "",     ">", "< 1",    1),
     ("ouvertures_1k",       "Ouvertures toutes faites / 1000 mots",    "",     ">", "0",      1),
     ("participiales_1k",    "Participiales finales / 1000 mots",       "",     ">", "< 1",    1),
+    ("gras_1k",             "Gras intra-paragraphe / 1000 mots",       "",     ">", "< 2",    1),
+    ("puces_gabarit_pct",   "Puces sur le meme gabarit",               "%",    ">", "< 40 %", 0),
+    ("titres_binaires_1k",  "Titres binaires / 1000 mots",             "",     ">", "< 1",    1),
+    ("typographie_1k",      "Ecarts typographiques / 1000 mots",       "",     ">", "< 1",    1),
+    ("faux_amis_1k",        "Faux amis de traduction / 1000 mots",     "",     ">", "0",      1),
+    ("anaphore_1k",         "Phrases en anaphore / 1000 mots",         "",     ">", "< 1",    1),
+    ("serie_ordinale_1k",   "Series ordinales / 1000 mots",            "",     ">", "0",      1),
+    ("questions_1k",        "Questions rhetoriques / 1000 mots",       "",     ">", "< 1",    1),
+    ("cloture_1k",          "Section de cloture rituelle / 1000 mots", "",     ">", "0",      1),
     ("specifique_1k",       "Noms propres + chiffres / 1000 mots",     "",     "<", "> 12",   0),
     ("par_cv",              "Variation des longueurs de paragraphe",   "",     "<", "> 0.50", 2),
 ]
+
+# Mesures rendues au lecteur sans peser dans le score. La densite de noms
+# propres et de chiffres en fait partie depuis qu'on a mesure ceci : ajouter a
+# un texte une seule phrase aux chiffres entierement fabriques le faisait passer
+# de « tics presents » a « texte propre ». Un script ne sait pas si un chiffre
+# renvoie a quoi que ce soit ; le scorer revenait a recompenser l'invention,
+# exactement ce que la passe 6 de la procedure interdit.
+OBSERVATIONS = ["specifique_1k"]
 
 META = {m[0]: {"libelle": m[1], "unite": m[2], "sens": m[3], "cible": m[4], "dec": m[5]}
         for m in METRIQUES}
@@ -125,9 +142,12 @@ LABELS = {
     "N": "Balancement 'not only... but also'",
     "P": "Participiale finale (', allowing...')",
     "Y": "Triade (X, Y et Z)",
+    "S": "Serie ordinale ('first... second... third')",
+    "Q": "Question rhetorique",
+    "Z": "Section de cloture rituelle",
 }
 
-ORDER = ["X", "N", "I", "C", "T1", "Y", "A", "O", "M", "P", "H",
+ORDER = ["X", "N", "I", "C", "T1", "Y", "A", "O", "M", "P", "S", "Q", "Z", "H",
          "T6", "T2", "T4", "T7", "T8", "T9"]
 
 # Quelle metrique compte quel marqueur.
@@ -135,8 +155,15 @@ SOURCE_MARQUEUR = {
     "tirets_1k": "T1", "intensificateurs_1k": "I", "contrastes_1k": "X",
     "not_only_1k": "N", "connecteurs_par": "C", "triades_1k": "Y",
     "hedging_1k": "H", "metaphores_1k": "M", "ouvertures_1k": "O",
-    "participiales_1k": "P",
+    "participiales_1k": "P", "gras_1k": "T6", "titres_binaires_1k": "T9",
+    "faux_amis_1k": "A", "serie_ordinale_1k": "S", "questions_1k": "Q",
+    "cloture_1k": "Z",
 }
+
+# Les ecarts typographiques comptent ensemble : ils relevent tous d'une
+# convention de langue mal tenue, et les separer produirait trois metriques
+# qui valent zero la plupart du temps.
+MARQUEURS_TYPO = ["T2", "T4", "T8"]
 
 EMOJI_RE = re.compile(
     "[\U0001F000-\U0001FAFF\U00002190-\U000021FF\U00002300-\U000023FF"
@@ -288,6 +315,23 @@ class Langue:
         self.re_particip = (re.compile(m["participiale_finale"], re.I)
                             if m.get("participiale_finale") else None)
         self.re_triade_nom, self.re_triade_adj = self._triades(m)
+        # Triades hors syntagme : propositions, imperatifs, phrases. La triade
+        # generee est le plus souvent a ce niveau-la, et le motif nominal ne
+        # la voit pas.
+        self.re_triade_extra = [re.compile(x, re.I) for x in m.get("triade_extra", [])]
+        self.re_serie = (re.compile(m["serie_ordinale"], re.I)
+                         if m.get("serie_ordinale") else None)
+        self.re_question = (re.compile(m["question"], re.I)
+                            if m.get("question") else None)
+        # Une derniere section intitulee « Summary », « Key takeaways » ou
+        # « Conclusion » : Evans n'en a aucune en cent mille mots.
+        self.re_cloture = (re.compile(m["cloture_rituelle"], re.I)
+                           if m.get("cloture_rituelle") else None)
+        # Un texte n'a qu'a substituer ses cadratins pour mettre la metrique a
+        # zero sans changer une virgule a son style : on compte donc aussi le
+        # demi-cadratin espace et le double trait d'union.
+        self.re_tirets_sub = (re.compile(m["tirets_substituts"])
+                              if m.get("tirets_substituts") else None)
 
         self.capitalises = set(d.get("mots_capitalises_courants", []))
         self.abreviations = d.get("abreviations", [])
@@ -589,9 +633,21 @@ def mask_inline(line):
     return BLANK_RE.sub(lambda m: " " * (m.end() - m.start()), line)
 
 
+PUCE_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+")
+PUCE_GABARIT_RE = re.compile(
+    r"^\s*(?:[-*+]|\d+[.)])\s+(?:\*\*[^*]+\*\*|`[^`]+`|_[^_]+_)\s*[:\u00a0]")
+
+
 def scan(raw_lines, kinds, langue):
-    """Retourne un dict marqueur -> liste de (ligne, extrait, detail)."""
+    """Retourne (marqueurs localises, structure du document).
+
+    La structure sert aux metriques de forme. Compter les puces a tete en gras
+    ne dirait rien — la documentation technique en use legitimement. Ce qui
+    trahit, c'est leur PART : un auteur en met quelques-unes, un modele les met
+    toutes sur le meme gabarit.
+    """
     hits = {}
+    structure = {"puces": 0, "puces_gabarit": 0, "titres": 0}
 
     def add(key, lineno, line, m, detail=""):
         if not langue.a_marqueur(key):
@@ -613,9 +669,18 @@ def scan(raw_lines, kinds, langue):
     for idx, (line, kind) in enumerate(zip(raw_lines, kinds), start=1):
         if kind in ("code", "frontmatter", "commentaire"):
             continue
+        if kind == "titre":
+            structure["titres"] += 1
+        elif kind == "puce":
+            structure["puces"] += 1
+            if PUCE_GABARIT_RE.match(line):
+                structure["puces_gabarit"] += 1
         plain = mask_inline(line)
 
         if kind == "titre":
+            balaye(langue.re_cloture, "Z", idx, line, line, "cloture rituelle")
+            for regex, detail in langue.re_contrast:
+                balaye(regex, "X", idx, line, line, detail)
             m = TITRE_BINAIRE_RE.search(line)
             if m:
                 add("T9", idx, line, m, line.strip())
@@ -634,6 +699,9 @@ def scan(raw_lines, kinds, langue):
                 if label_dash(line, m.start()):
                     continue
                 add("T1", idx, line, m, "tiret cadratin")
+
+            balaye(langue.re_tirets_sub, "T1", idx, line, line,
+                   "tiret de substitution")
 
             # T2 : tiret colle aux mots (usage anglais)
             for m in re.finditer(r"\w\u2014|\u2014\w", line):
@@ -676,7 +744,10 @@ def scan(raw_lines, kinds, langue):
             balaye(regex, "X", idx, line, plain, detail)
         balaye(langue.re_not_only, "N", idx, line, plain)
         balaye(langue.re_particip, "P", idx, line, plain)
-        for regex in (langue.re_triade_nom, langue.re_triade_adj):
+        balaye(langue.re_serie, "S", idx, line, plain, "serie ordinale")
+        balaye(langue.re_question, "Q", idx, line, plain, "question rhetorique")
+        for regex in ([langue.re_triade_nom, langue.re_triade_adj]
+                      + langue.re_triade_extra):
             if regex is None:
                 continue
             for m in regex.finditer(plain):
@@ -700,7 +771,7 @@ def scan(raw_lines, kinds, langue):
                 continue
             kept.append(h)
         hits[key] = kept
-    return hits
+    return hits, structure
 
 
 # --------------------------------------------------------------------------
@@ -740,7 +811,36 @@ def fmt_seuil(valeur, dec):
     return ent + ("." + frac if frac else "")
 
 
-def valeurs_brutes(paragraphs, hits, langue):
+DEBUT_PHRASE_RE = re.compile(r"[^\W\d_]+(?:['\u2019-][^\W\d_]+)*")
+
+
+def compte_anaphores(sentences):
+    """Phrases consecutives ouvrant sur les deux memes mots.
+
+    Trois phrases d'affilee commencant par « The pattern » est un effet de
+    manche ; c'est aussi ce que produit un modele qui deroule un gabarit. Deux
+    mots suffisent a le voir sans attraper les « Il faut » d'un texte normal.
+    """
+    n, precedent, serie = 0, None, 1
+    for s in sentences:
+        mots = [w.lower() for w in DEBUT_PHRASE_RE.findall(s)[:2]]
+        cle = tuple(mots)
+        if len(cle) == 2 and cle == precedent:
+            n += 1
+        # Trois phrases d'affilee sur le meme premier mot : « No flaky test.
+        # No half-documented API. No Slack thread… ». Deux mots identiques
+        # n'attrapent pas cette forme, tres frequente en anglais genere.
+        if precedent and mots and mots[0] == precedent[0]:
+            serie += 1
+            if serie >= 3:
+                n += 1
+        else:
+            serie = 1
+        precedent = cle if len(cle) == 2 else None
+    return n
+
+
+def valeurs_brutes(paragraphs, hits, langue, structure=None):
     sentences = []
     para_lengths = []
     for para in paragraphs:
@@ -776,6 +876,17 @@ def valeurs_brutes(paragraphs, hits, langue):
         valeurs[cle] = (n(marqueur) / max(npar, 1) if cle == "connecteurs_par"
                         else n(marqueur) / k)
 
+    valeurs["typographie_1k"] = sum(n(x) for x in MARQUEURS_TYPO) / k
+    valeurs["anaphore_1k"] = compte_anaphores(sentences) / k
+
+    # Sous quatre puces, une part n'a pas de sens : deux puces sur trois au
+    # meme gabarit peut etre un hasard de redaction. On rend 0, c'est-a-dire
+    # « rien a signaler », plutot qu'un pourcentage qui accuserait au hasard.
+    st = structure or {}
+    puces = st.get("puces", 0)
+    valeurs["puces_gabarit_pct"] = (100.0 * st.get("puces_gabarit", 0) / puces
+                                    if puces >= 4 else 0.0)
+
     stats = {
         "mots": nwords, "phrases": nsent, "paragraphes": npar,
         "phrase_moyenne": round(mean, 1),
@@ -786,8 +897,9 @@ def valeurs_brutes(paragraphs, hits, langue):
     return valeurs, stats, sentences, lengths
 
 
-def compute(paragraphs, hits, langue, registre):
-    valeurs, stats, sentences, lengths = valeurs_brutes(paragraphs, hits, langue)
+def compute(paragraphs, hits, langue, registre, structure=None):
+    valeurs, stats, sentences, lengths = valeurs_brutes(
+        paragraphs, hits, langue, structure)
     seuils = langue.seuils_pour(registre)
 
     metrics = []
@@ -810,9 +922,18 @@ def compute(paragraphs, hits, langue, registre):
             "suspect_si": "%s %s%s" % (meta["sens"], fmt_seuil(s, meta["dec"]), unite),
         })
 
+    observations = [{
+        "cle": cle,
+        "libelle": META[cle]["libelle"],
+        "valeur": round(valeurs[cle], 2),
+        "unite": META[cle]["unite"],
+        "repere": META[cle]["cible"],
+    } for cle in OBSERVATIONS if cle in valeurs]
+
     return {
         "stats": stats,
         "metrics": metrics,
+        "observations": observations,
         "sentences": sentences,
         "lengths": lengths,
     }
@@ -866,6 +987,17 @@ def render(path, langue, registre, avertissements, result, hits, max_occ):
     out.append("SCORE : %d metriques hors cible sur %d  ->  %s"
                % (nbad, len(result["metrics"]), verdict(nbad, len(result["metrics"]))))
     out.append("")
+
+    if result.get("observations"):
+        out.append("--- OBSERVATIONS (hors score) ---")
+        for o in result["observations"]:
+            unite = " %" if o["unite"] == "%" else ""
+            out.append("      %-42s %8s %-5s  (repere %s)"
+                       % (o["libelle"], fmt_seuil(o["valeur"], 2), unite, o["repere"]))
+        out.append("  Un script compte les chiffres, il ne sait pas s'ils")
+        out.append("  renvoient a quelque chose. Les scorer reviendrait a")
+        out.append("  recompenser un chiffre invente. A verifier a la lecture.")
+        out.append("")
 
     out.append("--- MARQUEURS LOCALISES ---")
     any_hit = False
@@ -970,8 +1102,8 @@ def main():
             "seuils de base appliques tels quels."
             % (args.registre, code, ", ".join(sorted(langue.registres))))
 
-    hits = scan(raw_lines, kinds, langue)
-    result = compute(paragraphs, hits, langue, args.registre)
+    hits, structure = scan(raw_lines, kinds, langue)
+    result = compute(paragraphs, hits, langue, args.registre, structure)
 
     if args.json:
         nbad = sum(1 for m in result["metrics"] if m["hors_cible"])
@@ -983,6 +1115,7 @@ def main():
             "registre": args.registre,
             "stats": result["stats"],
             "metriques": result["metrics"],
+            "observations": result.get("observations", []),
             "score": {"hors_cible": nbad, "total": len(result["metrics"]),
                       "verdict": verdict(nbad, len(result["metrics"])),
                       "fiable": result["stats"]["mots"] >= 200 and not diag_langue},

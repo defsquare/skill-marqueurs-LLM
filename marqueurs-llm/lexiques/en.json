@@ -39,82 +39,50 @@
     "metaphores_1k",
     "ouvertures_1k",
     "participiales_1k",
-    "specifique_1k",
-    "par_cv"
+    "par_cv",
+    "gras_1k",
+    "puces_gabarit_pct",
+    "titres_binaires_1k",
+    "typographie_1k",
+    "anaphore_1k",
+    "serie_ordinale_1k",
+    "questions_1k",
+    "cloture_1k"
   ],
   "seuils": {
     "base": {
-      "phrase_moyenne": {
-        "sens": ">",
-        "seuil": 21.32
-      },
-      "phrase_ecart_type": {
-        "sens": "<",
-        "seuil": 7.33
-      },
-      "cv": {
-        "sens": "<",
-        "seuil": 0.4
-      },
-      "pct_long": {
-        "sens": ">",
-        "seuil": 4.88
-      },
-      "pct_court": {
-        "sens": "<",
-        "seuil": 6.52
-      },
-      "tirets_1k": {
-        "sens": ">",
-        "seuil": 2.48
-      },
-      "intensificateurs_1k": {
-        "sens": ">",
-        "seuil": 4.84
-      },
-      "contrastes_1k": {
-        "sens": ">",
-        "seuil": 0.0
-      },
-      "not_only_1k": {
-        "sens": ">",
-        "seuil": 0.0
-      },
-      "connecteurs_par": {
-        "sens": ">",
-        "seuil": 0.1
-      },
-      "triades_1k": {
-        "sens": ">",
-        "seuil": 1.24
-      },
-      "hedging_1k": {
-        "sens": ">",
-        "seuil": 6.5
-      },
-      "metaphores_1k": {
-        "sens": ">",
-        "seuil": 0.0
-      },
-      "ouvertures_1k": {
-        "sens": ">",
-        "seuil": 0.0
-      },
-      "participiales_1k": {
-        "sens": ">",
-        "seuil": 0.0
-      },
-      "specifique_1k": {
-        "sens": "<",
-        "seuil": 11.22
-      },
-      "par_cv": {
-        "sens": "<",
-        "seuil": 0.29
-      }
+      "phrase_moyenne": 21.66,
+      "phrase_ecart_type": 7.33,
+      "cv": 0.39,
+      "pct_long": 4.88,
+      "pct_court": 5.0,
+      "tirets_1k": 2.38,
+      "intensificateurs_1k": 4.68,
+      "contrastes_1k": 1.2,
+      "not_only_1k": 0.0,
+      "connecteurs_par": 0.1,
+      "triades_1k": 2.39,
+      "hedging_1k": 6.04,
+      "metaphores_1k": 0.0,
+      "ouvertures_1k": 0.0,
+      "participiales_1k": 0.0,
+      "specifique_1k": 11.22,
+      "par_cv": 0.3,
+      "gras_1k": 6.0,
+      "puces_gabarit_pct": 40.0,
+      "titres_binaires_1k": 1.0,
+      "typographie_1k": 3.0,
+      "anaphore_1k": 2.46,
+      "serie_ordinale_1k": 1.22,
+      "questions_1k": 2.36,
+      "cloture_1k": 0.0
     },
     "registres": {
-      "prose": {}
+      "prose": {},
+      "technique": {
+        "gras_1k": 18.0,
+        "typographie_1k": 6.0
+      }
     }
   },
   "lexiques": {
@@ -186,7 +154,23 @@
       "vast",
       "immense",
       "stunning",
-      "breathtaking"
+      "breathtaking",
+      "scalable",
+      "streamlined",
+      "turnkey",
+      "enterprise-grade",
+      "future-proof",
+      "mission-critical",
+      "business-critical",
+      "data-driven",
+      "proactive",
+      "granular",
+      "actionable",
+      "holistic",
+      "seamlessly",
+      "best-in-class",
+      "world-class",
+      "next-generation"
     ],
     "connecteurs": [
       "however",
@@ -402,7 +386,20 @@
       "as we look ahead",
       "stay tuned",
       "the key takeaway",
-      "hope this helps"
+      "hope this helps",
+      "here's the thing",
+      "make no mistake",
+      "let's be honest",
+      "the takeaway",
+      "think of it as",
+      "the good news",
+      "the bad news",
+      "here's why",
+      "the short answer",
+      "bottom line",
+      "at the end of the day",
+      "so what does this mean",
+      "let that sink in"
     ],
     "faux_amis": {}
   },
@@ -423,7 +420,13 @@
       {
         "motif": "\\b(?:isn['’]t|aren['’]t|(?:is|are|was|were)\\s+not)\\s+about\\s+(?:(?!\\s(?:but|and|or|nor|because|which|when|while|if|though)\\s)[^,;:.!?()—]){2,45}[,;—.]\\s*(?:it|this|that|they|we)(?:['’]s|['’]re|\\s+is|\\s+are|\\s+was|\\s+were)\\s+about\\b",
         "detail": "'isn't about X, it's about Y'"
-      }
+      },
+      "\\b(?:is|are|was|were|isn['’]t|aren['’]t)\\s+not\\b[^.!?]{2,60}\\.\\s+(?:It|They|That|This)\\s+(?:is|are|was|were)\\b",
+      "\\b(?:is|are|was|were)\\s+not\\s+(?!just\\b|only\\b|merely\\b|simply\\b)[^.!?;]{2,60},\\s*but\\b",
+      "\\bn[o'’]t\\s+that\\b[^.!?;]{2,70}[,—]\\s*(?:it['’]?s|they['’]?re)\\b",
+      "^#{1,6}\\s+[^\\n]{4,70}?,\\s+not\\s+[^\\n]{2,40}$",
+      "\\bless\\s+(?:to do with|about)\\b[^.!?;]{2,50}\\band\\s+more\\b",
+      "\\bdo(?:es)?\\s+not\\s+\\w[^.!?]{2,60}\\bbecause\\b[^.!?]{2,60}\\.\\s+(?:They|It|We|He|She)\\b"
     ],
     "not_only": "\\bnot\\s+only\\b[^.!?;]{0,100}?\\b(?:but|and)\\b[^.!?;]{0,60}?\\b(?:also|too|as\\s+well|equally)\\b|\\bnot\\s+only\\b[^.!?;]{0,90}?\\b(?:it|they|he|she|we)\\s+(?:also|too)\\b",
     "participiale_finale": ",\\s+(?:enabling|ensuring|empowering|unlocking|streamlining|simplifying|optimi[sz]ing|fostering|facilitating|accelerating|boosting|maximi[sz]ing|minimi[sz]ing|transforming|strengthening|reinforcing|solidifying|cementing|positioning|showcasing|underscoring|highlighting|signal?ling|delivering|offering|yielding|driving|powering|fuel?ling|sparking|ushering in|paving the way|setting the stage|culminating in|translating into|contributing to|adding to|amounting to|preventing|eliminating|freeing|saving|cutting|lowering|raising|increasing|improving|reducing|expanding|extending|broadening|deepening|promoting|encouraging|supporting)\\b[^.!?;:,]{0,90}[.!?](?:\\s|$)",
@@ -432,7 +435,15 @@
     "triade_conjonctions_exclues": "(?:and|or|but|nor|which|that|who|when|while|because)",
     "triade_mots_vides": "(?:the|a|an|of|in|on|at|by|with|for|from|to|as|and|or|is|are|was|were|be|been|it|its|this|that|these|those|which|who|whom|whose|when|while|but|not|there|then|than|so|if|we|you|they|he|she|his|her|our|your|my|their|has|have|had|do|does|did|can|could|will|would|may|might|must|should|shall|about|into|onto|over|under|between|through|during|within|without|such|more|most|less|least|any|each|every|no|nor|because|since|although|though|however|thus|therefore|including|excluding|especially|namely|perhaps|mostly|often|usually|greatly|largely|simply|just|only|even|also|still|yet|both|either|neither|one|two|three|first|second|third|following|never|always)",
     "triade_virgule_serie": true,
-    "coordination": "(?:and|or)"
+    "coordination": "(?:and|or)",
+    "triade_extra": [
+      "\\b(\\w+\\s+(?:is|are|was|were|can|will|does|do)\\s+[^,;.!?]{2,35}),\\s*(\\w+\\s+(?:is|are|was|were|can|will|does|do)\\s+[^,;.!?]{2,35}),?\\s+and\\s+",
+      "(?:^|\\.\\s+)([A-Z][a-z]+\\s+[^,;.!?]{3,40}),\\s+([a-z]+\\s+[^,;.!?]{3,40}),\\s+and\\s+[a-z]+"
+    ],
+    "serie_ordinale": "\\b(?:first|second|third|firstly|secondly|thirdly)\\b\\s*[,.]",
+    "tirets_substituts": "\\s–\\s|\\s--\\s|\\w--\\w",
+    "question": "(?:^|(?<=[.!?]\\s))[A-Z][^.!?]{8,120}\\?",
+    "cloture_rituelle": "^#{1,6}\\s+(?:summary|conclusion|in conclusion|wrapping up|final thoughts?|key takeaways?|takeaways?|tl;?dr|the bottom line|closing thoughts?|what this means|next steps)\\b"
   },
   "mots_capitalises_courants": [
     "The",
@@ -886,5 +897,8 @@
         }
       ]
     }
-  }
+  },
+  "observations": [
+    "specifique_1k"
+  ]
 }

@@ -4,97 +4,204 @@
   "corpus": "evans-ddd-2003.txt",
   "validation": {
     "echantillons": 119,
-    "mots": 99965,
+    "mots": 99937,
     "score_median": 1,
-    "score_moyen": 1.19,
+    "score_moyen": 1.6,
     "score_max": 5,
     "part_au_dela_de_6": 0.0
   },
   "seuils": {
     "phrase_moyenne": {
       "sens": ">",
-      "seuil": 21.32,
-      "median": 18.42
-    },
-    "tirets_1k": {
-      "sens": ">",
-      "seuil": 2.48,
-      "median": 1.14
-    },
-    "intensificateurs_1k": {
-      "sens": ">",
-      "seuil": 4.84,
-      "median": 1.23
-    },
-    "contrastes_1k": {
-      "sens": ">",
-      "seuil": 0.0,
-      "median": 0.0
-    },
-    "not_only_1k": {
-      "sens": ">",
-      "seuil": 0.0,
-      "median": 0.0
-    },
-    "connecteurs_par": {
-      "sens": ">",
-      "seuil": 0.1,
-      "median": 0.0
-    },
-    "triades_1k": {
-      "sens": ">",
-      "seuil": 1.24,
-      "median": 0.0
-    },
-    "hedging_1k": {
-      "sens": ">",
-      "seuil": 6.5,
-      "median": 3.39
-    },
-    "metaphores_1k": {
-      "sens": ">",
-      "seuil": 0.0,
-      "median": 0.0
-    },
-    "ouvertures_1k": {
-      "sens": ">",
-      "seuil": 0.0,
-      "median": 0.0
-    },
-    "participiales_1k": {
-      "sens": ">",
-      "seuil": 0.0,
-      "median": 0.0
-    },
-    "pct_long": {
-      "sens": ">",
-      "seuil": 4.88,
-      "median": 2.08
+      "seuil": 21.66,
+      "median": 18.51,
+      "d1": 16.28,
+      "d9": 21.66,
+      "max": 25.11
     },
     "phrase_ecart_type": {
       "sens": "<",
       "seuil": 7.33,
-      "median": 8.58
+      "median": 8.57,
+      "d1": 7.33,
+      "d9": 10.21,
+      "max": 13.99
     },
     "cv": {
       "sens": "<",
-      "seuil": 0.4,
-      "median": 0.47
+      "seuil": 0.39,
+      "median": 0.46,
+      "d1": 0.39,
+      "d9": 0.54,
+      "max": 0.63
+    },
+    "pct_long": {
+      "sens": ">",
+      "seuil": 4.88,
+      "median": 2.08,
+      "d1": 0.0,
+      "d9": 4.88,
+      "max": 11.11
     },
     "pct_court": {
       "sens": "<",
-      "seuil": 6.52,
-      "median": 13.04
+      "seuil": 5.0,
+      "median": 13.04,
+      "d1": 5.0,
+      "d9": 23.26,
+      "max": 30.0
     },
-    "specifique_1k": {
-      "sens": "<",
-      "seuil": 11.22,
-      "median": 35.24
+    "tirets_1k": {
+      "sens": ">",
+      "seuil": 2.38,
+      "median": 1.14,
+      "d1": 0.0,
+      "d9": 2.38,
+      "max": 7.18
+    },
+    "intensificateurs_1k": {
+      "sens": ">",
+      "seuil": 4.68,
+      "median": 1.23,
+      "d1": 0.0,
+      "d9": 4.68,
+      "max": 7.26
+    },
+    "contrastes_1k": {
+      "sens": ">",
+      "seuil": 1.2,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 1.2,
+      "max": 4.91
+    },
+    "not_only_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 1.25
+    },
+    "connecteurs_par": {
+      "sens": ">",
+      "seuil": 0.1,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.1,
+      "max": 0.22
+    },
+    "triades_1k": {
+      "sens": ">",
+      "seuil": 2.39,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 2.39,
+      "max": 3.69
+    },
+    "hedging_1k": {
+      "sens": ">",
+      "seuil": 6.04,
+      "median": 2.49,
+      "d1": 1.16,
+      "d9": 6.04,
+      "max": 8.4
+    },
+    "metaphores_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 1.15
+    },
+    "ouvertures_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 1.17
+    },
+    "participiales_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 1.22
     },
     "par_cv": {
       "sens": "<",
-      "seuil": 0.29,
-      "median": 0.44
+      "seuil": 0.3,
+      "median": 0.44,
+      "d1": 0.3,
+      "d9": 0.57,
+      "max": 0.77
+    },
+    "gras_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 0.0
+    },
+    "puces_gabarit_pct": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 0.0
+    },
+    "titres_binaires_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 0.0
+    },
+    "typographie_1k": {
+      "sens": ">",
+      "seuil": 1.2,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 1.2,
+      "max": 3.66
+    },
+    "anaphore_1k": {
+      "sens": ">",
+      "seuil": 2.46,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 2.46,
+      "max": 6.05
+    },
+    "serie_ordinale_1k": {
+      "sens": ">",
+      "seuil": 1.22,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 1.22,
+      "max": 3.46
+    },
+    "questions_1k": {
+      "sens": ">",
+      "seuil": 2.36,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 2.36,
+      "max": 3.74
+    },
+    "cloture_1k": {
+      "sens": ">",
+      "seuil": 0.0,
+      "median": 0.0,
+      "d1": 0.0,
+      "d9": 0.0,
+      "max": 0.0
     }
   }
 }

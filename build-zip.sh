@@ -126,8 +126,8 @@ if [ "$RUN_TESTS" -eq 1 ]; then
     for lang in fr en; do
       [ -f "$SRC/lexiques/$lang.json" ] || die "fichier de langue absent : $SRC/lexiques/$lang.json"
     done
-    temoin fr "$SRC/references/exemple-texte-llm-fr.md" 9 13
-    temoin en "$SRC/references/exemple-texte-llm-en.md" 17 17
+    temoin fr "$SRC/references/exemple-texte-llm-fr.md" 9 21
+    temoin en "$SRC/references/exemple-texte-llm-en.md" 17 24
   fi
 fi
 

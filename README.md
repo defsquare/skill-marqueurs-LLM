@@ -53,7 +53,7 @@ cat texte.txt | python3 marqueurs-llm/scripts/analyse.py -
 ```
 
 Il détecte la langue seul et l'affiche en tête du rapport ; `--langue fr|en` la
-force. Il rend treize métriques en français et dix-sept en anglais, les
+force. Il rend vingt et une métriques en français, vingt-quatre en anglais, en français et dix-sept en anglais, les
 occurrences localisées à la ligne, et le profil de rythme : la longueur de
 chaque phrase dans l'ordre. C'est ce profil qui trahit le plus sûrement une
 machine, parce qu'un auteur humain suit son argument, qui n'a aucune raison
@@ -68,8 +68,8 @@ d'être régulier.
 | `marqueurs-llm/lexiques/fr.json`, `en.json` | lexiques, motifs et seuils de chaque langue |
 | `marqueurs-llm/references/catalogue-fr.md`, `catalogue-en.md` | tous les marqueurs, seuils et justifications |
 | `marqueurs-llm/references/exemples-fr.md`, `exemples-en.md` | réécritures commentées, dont un contre-exemple de sur-correction |
-| `marqueurs-llm/references/exemple-texte-llm-fr.md` | texte-témoin français, 9/13 attendu |
-| `marqueurs-llm/references/exemple-texte-llm-en.md` | texte-témoin anglais, 17/17 attendu |
+| `marqueurs-llm/references/exemple-texte-llm-fr.md` | texte-témoin français, 9/21 attendu |
+| `marqueurs-llm/references/exemple-texte-llm-en.md` | texte-témoin anglais, 17/24 attendu |
 | `calibration/` | la méthode, l'outil et le corpus qui produisent les seuils anglais |
 | `marqueurs-llm.md` | le référentiel d'origine dont la skill est tirée |
 

@@ -182,6 +182,26 @@ correspondances chez Evans sont trois faux positifs, tous des appositions
 (« two categories, commands and queries »). Aucune regex ne sépare l'apposition
 de l'énumération sans étiquetage morphosyntaxique.
 
+## Ce que le corpus ne peut pas calibrer
+
+Quatre métriques ne se dérivent pas d'Evans : `gras_1k`, `puces_gabarit_pct`,
+`titres_binaires_1k` et `cloture_1k`. Le corpus vient d'un PDF, il n'a ni gras,
+ni puces, ni titres markdown, et le 9ᵉ décile y vaut zéro pour une raison
+structurelle et non parce que la prose humaine en serait exempte. Leurs seuils
+viennent donc du jugement, validés contre la documentation technique du dépôt.
+C'est plus faible que la dérivation sur corpus, et `calibre.py` les laisse
+intacts au lieu de les écraser à zéro.
+
+Pour les mettre sur le même pied que les autres il faudrait un corpus de README
+et de documentation markdown antérieurs à 2022.
+
+## Une seule mesure pour les deux outils
+
+`calibre.py` importait sa propre implémentation des métriques. Les deux
+divergeaient — la médiane de hedging de 27 % — si bien qu'un seuil dérivé ici
+ne voulait pas dire la même chose appliqué par `analyse.py`. Le script importe
+désormais le moteur de la skill : il n'y a plus qu'une mesure.
+
 ## Limites
 
 **Un seul auteur, un seul registre, une seule époque.** Les seuils collent à la

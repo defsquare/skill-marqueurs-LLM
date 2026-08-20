@@ -28,7 +28,7 @@ et le rapport l'affiche en tête ; `--langue fr|en` la force quand la détection
 hésite ou quand le texte est court.
 
 Le **nombre de métriques** diffère, donc le score aussi : **13 en français, 17
-en anglais**. Toujours citer le dénominateur : « 9/13 » et « 9/17 » ne disent
+en anglais**. Toujours citer le dénominateur : « 9/21 » et « 9/24 » ne disent
 pas la même chose.
 
 La **provenance des seuils** diffère, et c'est ce qui autorise ou non à trancher.
@@ -97,10 +97,13 @@ Trois blocs :
 
 **Les métriques.** Chacune est marquée `ok` ou `!!`. Le score final compte les
 métriques hors cible. Les paliers sont donnés en proportion, pour que l'anglais
-ne soit pas jugé plus sévèrement au seul motif qu'il mesure dix-sept choses là
-où le français en mesure treize : jusqu'à 2/13 ou 2/17 le texte est propre,
-jusqu'à 5/13 ou 6/17 les tics sont présents et corrigeables, au-delà il faut
-réécrire. Le script affiche déjà le verdict ; le reprendre tel quel.
+ne soit pas jugé plus sévèrement au seul motif qu'il mesure vingt-quatre choses
+là où le français en mesure vingt et une. Le script affiche déjà le verdict ;
+le reprendre tel quel plutôt que de recalculer un seuil de tête.
+
+Une métrique n'entre dans le score que si la langue la déclare, et le
+dénominateur change donc d'une langue à l'autre. C'est pourquoi il faut
+toujours citer le score complet.
 
 **Les marqueurs localisés**, avec numéro de ligne et extrait. C'est la matière
 première de la correction : chaque ligne citée est une décision à prendre.
